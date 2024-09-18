@@ -1,0 +1,139 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:password="clr-namespace:Gym_Reception_Management_System.Utils.Password">
+
+    <!--#region Converters-->
+    <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    <!--#endregion-->
+
+    <!--#region Loading Screen-->
+
+    <Style x:Key="LoadingScreenGrid" TargetType="Grid">
+        <Setter Property="Background" Value="#3000" />
+        <Setter Property="Visibility"
+                Value="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </Style>
+
+    <Style x:Key="LoadingScreen" TargetType="ProgressBar"
+           BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+        <Setter Property="Value" Value="0" />
+        <Setter Property="Margin" Value="5 0" />
+        <Setter Property="IsIndeterminate" Value="True" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Width" Value="50" />
+    </Style>
+
+    <!--#endregion Loading Screen-->
+
+    <!--#region LogInView-->
+
+    <Style x:Key="LogInPasswordBox" TargetType="PasswordBox"
+           BasedOn="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="materialDesign:HintAssist.Hint" Value="Password" />
+        <Setter Property="password:SecurePasswordBoxHelper.CanBind" Value="True" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <AdornedElementPlaceholder x:Name="AdornedPlaceHolder" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LogInUsernameBox" TargetType="TextBox"
+           BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="15" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="materialDesign:HintAssist.Hint" Value="Username" />
+        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <TextBlock Foreground="Red"
+                                   FontSize="10"
+                                   Background="Beige"
+                                   MaxWidth="200"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding ElementName=AdornedPlaceHolder, 
+                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                        <AdornedElementPlaceholder x:Name="AdornedPlaceHolder" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LogInButton" TargetType="Button"
+           BasedOn="{StaticResource MaterialDesignRaisedSecondaryButton}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="10 10" />
+        <Setter Property="Width" Value="90" />
+        <Setter Property="Height" Value="34" />
+    </Style>
+
+    <!--#endregion LogInView-->
+
+    <!--#region SignUpView-->
+
+    <Style x:Key="SignUpTextBox" TargetType="{x:Type TextBox}"
+           BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="22" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="AdornedPlaceHolder" />
+                        <TextBlock Foreground="Red"
+                                   FontSize="10"
+                                   Background="Beige"
+                                   MaxWidth="200"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding ElementName=AdornedPlaceHolder, 
+                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SignUpPasswordBox" TargetType="PasswordBox"
+           BasedOn="{StaticResource MaterialDesignFloatingHintRevealPasswordBox}">
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="22" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="password:SecurePasswordBoxHelper.CanBind" Value="True" />
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="AdornedPlaceHolder" />
+                        <TextBlock Foreground="Red"
+                                   FontSize="10"
+                                   Background="Beige"
+                                   MaxWidth="200"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding ElementName=AdornedPlaceHolder, 
+                                        Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--#endregion SignUpView-->
+</ResourceDictionary>

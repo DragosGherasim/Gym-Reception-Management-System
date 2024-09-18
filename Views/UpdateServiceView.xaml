@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="Gym_Reception_Management_System.Views.UpdateServiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:Gym_Reception_Management_System.Utils.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModels="clr-namespace:Gym_Reception_Management_System.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Utils/Resources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ItemsControl Grid.Row="0"
+                      Margin="0 40 0 20"
+                      HorizontalAlignment="Center"
+                      ItemsSource="{Binding ServicesCollection}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewModels:ServiceViewModel}">
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox Grid.Column="0"
+                                  HorizontalAlignment="Center"
+                                  Margin="0 0 100 0"
+                                  materialDesign:HintAssist.Hint="Services :"
+                                  ItemsSource="{Binding Services}"
+                                  SelectedIndex="{Binding ServiceSelectedIndex}"
+                                  IsEnabled="False" />
+
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Bottom"
+                                    Margin="0 0 0 20"
+                                    Width="155">
+
+                            <Label Content="Update Duration (months) :" />
+                            <controls:NumericUpDown Width="50"
+                                                    LowerBound="0"
+                                                    UpperBound="24"
+                                                    Value="{Binding ServiceDuration}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Button Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="10 10"
+                Width="100"
+                Height="34"
+                Content="Confirm"
+                Command="{Binding ConfirmCommand}" />
+
+        <Grid Grid.Row="0"
+              Grid.RowSpan="2"
+              Style="{StaticResource LoadingScreenGrid}">
+
+            <ProgressBar Style="{StaticResource LoadingScreen}" />
+
+        </Grid>
+    </Grid>
+</UserControl>

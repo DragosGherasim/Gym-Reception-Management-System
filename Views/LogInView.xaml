@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Gym_Reception_Management_System.Views.LogInView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:utils="clr-namespace:Gym_Reception_Management_System.Utils"
+        xmlns:password="clr-namespace:Gym_Reception_Management_System.Utils.Password">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Utils/Resources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0"
+                    Style="{StaticResource LogInUsernameBox}"
+                    Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
+
+            <PasswordBox Grid.Row="1"
+                        Style="{StaticResource LogInPasswordBox}"
+                        password:SecurePasswordBoxHelper.SecurePassword="{Binding Password, Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button Grid.Row="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="10 10"
+                Width="90"
+                Height="34"
+                Content="Log In"
+                Command="{Binding LogInCommand}" />
+
+            <Button Grid.Row="3"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="10 10"
+                Width="90"
+                Height="34"
+                Content="Sign Up"
+                Command="{Binding SignUpCommand}" />
+        </Grid>
+
+        <Grid Style="{StaticResource LoadingScreenGrid}">
+            <ProgressBar Style="{StaticResource LoadingScreen}"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="Gym_Reception_Management_System.Views.CreateMembershipView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:Gym_Reception_Management_System.Utils.Controls"
+             xmlns:viewModels="clr-namespace:Gym_Reception_Management_System.ViewModels">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Utils/Resources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0"
+                     Grid.Column="0"
+                     Style="{StaticResource SignUpTextBox}"
+                     materialDesign:HintAssist.Hint="First Name"
+                     Text="{Binding Membership.FirstName, UpdateSourceTrigger=PropertyChanged}" 
+                     ToolTip="Only letters."/>
+
+            <TextBox Grid.Row="0" Grid.Column="1"
+                     Style="{StaticResource SignUpTextBox}"
+                     materialDesign:HintAssist.Hint="Last Name"
+                     Text="{Binding Membership.LastName, UpdateSourceTrigger=PropertyChanged}" 
+                     ToolTip="Only letters."/>
+
+            <TextBox Grid.Row="1" Grid.Column="0"
+                     Style="{StaticResource SignUpTextBox}"
+                     materialDesign:HintAssist.Hint="ID Serial Number"
+                     Text="{Binding Membership.IdSerialNumber,UpdateSourceTrigger=PropertyChanged}" 
+                     ToolTip="Only Id Serial Number format ('XX1234567')."/>
+
+            <TextBox Grid.Row="1"
+                     Grid.Column="1"
+                     Style="{StaticResource SignUpTextBox}"
+                     materialDesign:HintAssist.Hint="Address"
+                     Text="{Binding Membership.Address, UpdateSourceTrigger=PropertyChanged}" 
+                     ToolTip="Only address format. Can contain white-spaces and symbols(.,#-)."/>
+
+            <TextBox Grid.Row="2"
+                     Grid.Column="0"
+                     Style="{StaticResource SignUpTextBox}"
+                     materialDesign:HintAssist.Hint="Phone Number"
+                     Text="{Binding Membership.PhoneNumber, UpdateSourceTrigger=PropertyChanged}" 
+                     ToolTip="Only 10 digits."/>
+
+            <StackPanel Grid.Row="2"
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 22"
+                        Width="90">
+
+                <Label Content="No of Services : " />
+                <controls:NumericUpDown Width="50"
+                                        LowerBound="1"
+                                        UpperBound="3"
+                                        Value="{Binding Membership.NoServices}" />
+            </StackPanel>
+        </Grid>
+
+        <ItemsControl Grid.Row="1"
+                      HorizontalAlignment="Center"
+                      ItemsSource="{Binding ServicesCollection}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewModels:ServiceViewModel}">
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox Grid.Column="0"
+                                  HorizontalAlignment="Center"
+                                  Margin="0 0 100 0"
+                                  materialDesign:HintAssist.Hint="Services :"
+                                  ItemsSource="{Binding Services}"
+                                  SelectedIndex="{Binding ServiceSelectedIndex}" />
+
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Bottom"
+                                    Margin="0 0 0 20"
+                                    Width="155">
+
+                            <Label Content="Service Duration (months) :" />
+                            <controls:NumericUpDown Width="50"
+                                                    LowerBound="1"
+                                                    UpperBound="24"
+                                                    Value="{Binding ServiceDuration}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Button Grid.Row="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="0 24 0 0"
+                Width="130"
+                Height="34"
+                Content="Confirm"
+                Command="{Binding ConfirmCommand}" />
+
+        <Button Grid.Row="3"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Margin="10 15"
+                Width="130"
+                Height="34"
+                Content="Go Back"
+                Command="{Binding GoBackCommand}" />
+
+        <Grid Grid.Row="0"
+              Grid.RowSpan="4"
+              Style="{StaticResource LoadingScreenGrid}">
+
+            <ProgressBar Style="{StaticResource LoadingScreen}" />
+        </Grid>
+    </Grid>
+</UserControl>
